@@ -3,7 +3,8 @@
 	ViewBag.Title = "Home Page";
 }
 
-<table class="table">
+
+<table class="table" width="100%">
 	<thead class="thead-inverse">
 		<tr>
 			<th>Id</th>
@@ -14,15 +15,15 @@
 	</thead>
 	<tbody>
 		@foreach (var product in Model)
-		{
+			{
 
 			<tr>
-				<th scope="row">@product.ProductID</th>
+				<td scope="row">@product.ProductID</td>
 				<td>@product.Name</td>
 				<td>@product.Store</td>
 				<td>@product.PricePoints.Last().Price</td>
 			</tr>
-		}
+			}
 
 	</tbody>
 </table>

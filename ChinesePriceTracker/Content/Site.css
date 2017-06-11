@@ -17,6 +17,10 @@
     white-space: normal;
 }
 
+.table {
+	max-width: 20000px;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,

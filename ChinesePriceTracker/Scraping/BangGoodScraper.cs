@@ -37,15 +37,11 @@ namespace ChinesePriceTracker.Scraping
 		public async Task<decimal> GetPrice()
 		{
 			var page = await GetPage(_url);
-			var nodes = page.Html.Descendants().Where(node => node.Attributes.Contains("oriprice"));
-			var pricestring = nodes.ElementAt(3).InnerText;
-			pricestring = pricestring.Substring(3);
-			decimal price; 
-			if (!decimal.TryParse(pricestring, out price))
-			{
-				price = 0.00m;
-			}
-			return price;
+			var nodes = page.Html.Descendants().Where(node => node.Attributes.Contains("class"));
+			nodes = nodes.Where(attribute => attribute.Attributes["class"].Value == "now");
+			string pricestring = nodes.First().InnerHtml;
+			decimal price = decimal.Parse(pricestring);
+			return  price;
 
 			//return decimal.Parse(page.Html.SelectSingleNode("/html/body/div[7]/div/div[2]/div[3]/div[2]/div[2]").InnerText);
 		}
