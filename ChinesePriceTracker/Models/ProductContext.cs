@@ -14,5 +14,6 @@ namespace ChinesePriceTracker.Models
 		}
 
 		public DbSet<Product> Products { get; set; }
+		public DbSet<PricePoint> PricePoints { get; set; }
 	}
 }

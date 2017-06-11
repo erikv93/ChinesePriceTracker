@@ -1,0 +1,10 @@
+﻿@model ChinesePriceTracker.Models.Product
+
+@{
+    ViewBag.Title = "ConfirmDetails";
+}
+
+<h2>ConfirmDetails</h2>
+<p>@Model.Name</p>
+<p>@Model.Store</p>
+<p>@Model.PricePoints.Last().Time : @Model.PricePoints.Last().Price</p>

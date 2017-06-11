@@ -4,34 +4,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ChinesePriceTracker.Controllers
 {
 	public class HomeController : Controller
 	{
-		public async Task<ActionResult> Index()
+
+		private ProductContext db = new ProductContext();
+
+		public ActionResult Index()
 		{
+			var products = db.Products.ToList();
+			return View(products);
+		}
 
-
-			IScraper scraper = new GearBestScraper();
-			decimal prijs = await scraper.GetPrice();
-			string naam = await scraper.GetName();
-
-			using (var context = new ProductContext())
-			{
-				context.Products.Add(new Product
-				{
-					Name = naam,
-					CurrentPrice = prijs,
-					PriceHistory = new Dictionary<DateTime, decimal>(),
-					Store = "GearBest",
-					Url = "je moeder",
-				});
-			}
-
+		[HttpGet]
+		public ActionResult Add()
+		{
 			return View();
 		}
+
+		[HttpPost]
+		public async Task<ActionResult> Add(string url)
+		{
+			ProductInfoScraper scraper = new ProductInfoScraper(url);
+			Product product = await scraper.GetProductInfo();
+
+			db.Products.Add(product);
+			db.SaveChanges();
+
+			return View(nameof(ConfirmDetails), product);
+		}
+
+		public ActionResult ConfirmDetails()
+		{
+			// Get the product somewhere here
+			return View();
+		}
+
 	}
 }

@@ -1,15 +1,28 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model List<ChinesePriceTracker.Models.Product>
+@{
+	ViewBag.Title = "Home Page";
 }
 
 <table class="table">
 	<thead class="thead-inverse">
 		<tr>
+			<th>Id</th>
 			<th>Name</th>
 			<th>Store</th>
-			<th>Last Measured</th>
-			<th>Price</th>
-			<th>Price increase last month</th>
+			<th>Latest price</th>
 		</tr>
 	</thead>
+	<tbody>
+		@foreach (var product in Model)
+		{
+
+			<tr>
+				<th scope="row">@product.ProductID</th>
+				<td>@product.Name</td>
+				<td>@product.Store</td>
+				<td>@product.PricePoints.Last().Price</td>
+			</tr>
+		}
+
+	</tbody>
 </table>

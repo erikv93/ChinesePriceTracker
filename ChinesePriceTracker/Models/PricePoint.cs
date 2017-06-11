@@ -7,18 +7,16 @@ using System.Web;
 
 namespace ChinesePriceTracker.Models
 {
-	public class Product
+	public class PricePoint
 	{
 		[Key]
+		public int PriceID { get; set; }
+		[Required]
+		public DateTime Time {get; set;}
+		[Required]
+		public decimal Price { get; set; }
+		[ForeignKey("ProductID")]
+		public virtual Product Product { get; set; }
 		public int ProductID { get; set; }
-		[Required]
-		public string Name { get; set; }
-		[Required]
-		public string Store { get; set; }
-		[Required]
-		public string Url { get; set; }
-		[Required]
-		public virtual List<PricePoint> PricePoints { get; set; }
-
 	}
 }

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+<h1 id="hostname"></h1>
+<form method="post">
+	<div class="form-group">
+		<label for="inputProductUrl">Product URL</label>
+		<input type="url" name="url" class="form-control" id="inputProductUrl" placeholder="URL linking to the product" />
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script type="text/javascript">
+	function CheckSite() {
+		var parser = document.createElement('a');
+		parser.href = document.getElementById("inputProductUrl").value;
+		document.getElementById("hostname").innerHTML = parser.hostname;
+	}
+</script>

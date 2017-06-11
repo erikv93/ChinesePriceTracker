@@ -11,5 +11,6 @@ namespace ChinesePriceTracker.Scraping
 	{
 		Task<decimal> GetPrice();
 		Task<string> GetName();
+		Task<bool> ValidUrl();
 	}
 }
