@@ -1,4 +1,5 @@
-﻿using ChinesePriceTracker.Scraping;
+﻿using ChinesePriceTracker.Models;
+using ChinesePriceTracker.Scraping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,24 @@ namespace ChinesePriceTracker.Controllers
 	{
 		public async Task<ActionResult> Index()
 		{
-			var heer = new GearBestScraper();
-			var mongol = await heer.GetPrice();
+
+
+			IScraper scraper = new GearBestScraper();
+			decimal prijs = await scraper.GetPrice();
+			string naam = await scraper.GetName();
+
+			using (var context = new ProductContext())
+			{
+				context.Products.Add(new Product
+				{
+					Name = naam,
+					CurrentPrice = prijs,
+					PriceHistory = new Dictionary<DateTime, decimal>(),
+					Store = "GearBest",
+					Url = "je moeder",
+				});
+			}
+
 			return View();
 		}
 	}
