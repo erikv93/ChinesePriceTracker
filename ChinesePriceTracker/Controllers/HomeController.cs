@@ -30,17 +30,25 @@ namespace ChinesePriceTracker.Controllers
 		{
 			ProductInfoScraper scraper = new ProductInfoScraper(url);
 			Product product = await scraper.GetProductInfo();
-
-			db.Products.Add(product);
-			db.SaveChanges();
+			TempData["product"] = product;
 
 			return View(nameof(ConfirmDetails), product);
 		}
 
 		public ActionResult ConfirmDetails()
 		{
-			// Get the product somewhere here
 			return View();
+		}
+
+		public ActionResult Confirmed()
+		{
+			Product product = TempData["product"] as Product;
+			TempData["product"] = null;
+
+			db.Products.Add(product);
+			db.SaveChanges();
+
+			return View(nameof(Index), db.Products.ToList());
 		}
 
 	}

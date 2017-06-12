@@ -8,3 +8,7 @@
 <p>@Model.Name</p>
 <p>@Model.Store</p>
 <p>@Model.PricePoints.Last().Time : @Model.PricePoints.Last().Price</p>
+
+
+	<a href="@Url.Action("Confirmed", "Home")" class="btn btn-primary">Confirm</a>
+	<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancel</a>
